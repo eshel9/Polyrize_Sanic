@@ -2,6 +2,7 @@ from sanic.views import HTTPMethodView
 from sanic.response import json
 from sanic_jwt import protected
 from json import loads
+import config
 
 
 class NormalizationView(HTTPMethodView):
@@ -15,4 +16,4 @@ class NormalizationView(HTTPMethodView):
 
 
 def add_normalization_routes(app):
-    app.add_route(NormalizationView.as_view(), '/normalize')
+    app.add_route(NormalizationView.as_view(), config.normalize_url)

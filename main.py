@@ -1,11 +1,13 @@
 from sanic import Sanic
 from sanic_jwt import initialize
-from authentication import authenticate
+from authentication import authenticate, load_valid_users_file
 from normalization import add_normalization_routes
+import config
 
-app = Sanic("Eshel' Sanic App")
-initialize(app, authenticate=authenticate, url_prefix='/auth_user')
+app = Sanic(config.app_name)
+initialize(app, authenticate=authenticate, url_prefix=config.auth_url)
 add_normalization_routes(app)
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8888)
+    load_valid_users_file()
+    app.run(host=config.host, port=config.port)

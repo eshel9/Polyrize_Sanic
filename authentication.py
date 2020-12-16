@@ -1,11 +1,25 @@
 from sanic_jwt import exceptions
 from user import User
+import json
+import config
 
-# TODO: make 'users' be parsed from a file
-users = [User(1, "user1", "abcxyz"), User(2, "user2", "pass2")]
+username_table = {}
+userid_table = {}
 
-username_table = {u.username: u for u in users}
-userid_table = {u.user_id: u for u in users}
+
+def load_valid_users_file():
+    global username_table
+    global userid_table
+
+    with open(config.valid_users_file) as json_file:
+        valid_users_raw = json.load(json_file)
+
+    users = []
+    for json_user in valid_users_raw:
+        users.append(User(json_user["id"], json_user["name"], json_user["password"]))
+
+    username_table = {u.username: u for u in users}
+    userid_table = {u.user_id: u for u in users}
 
 
 async def authenticate(request, *args, **kwargs):
