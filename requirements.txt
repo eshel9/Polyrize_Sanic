@@ -7,8 +7,10 @@ httpx==0.15.4
 idna==2.10
 multidict==5.0.0
 pkg-resources==0.0.0
+PyJWT==1.7.1
 rfc3986==1.4.0
 sanic==20.9.1
+sanic-jwt==1.5.0
 sniffio==1.2.0
 ujson==4.0.1
 uvloop==0.14.0
