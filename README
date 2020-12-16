@@ -1,0 +1,15 @@
+To run this program, first install all requirements listed on the
+requirements.txt file.
+Then run:
+    python3 main.py
+
+To check, first install:
+    sudo apt install jq
+
+Then, run one of the following:
+    ./test.bash
+Or:
+    ./bad_test.bash
+
+The second one should fail the authentication process and not be allowed
+to normalize jsons.
