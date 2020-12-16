@@ -1,14 +1,17 @@
 from sanic.views import HTTPMethodView
-from sanic.response import text
 from sanic.response import json
+from sanic_jwt import protected
+from json import loads
 
 
 class NormalizationView(HTTPMethodView):
-    def get(self, request):
-        return json({"hello": "world"})
+    decorators = [protected()]
 
     def post(self, request):
-        return text('I am post method')
+        body_json = request.body.decode('utf-8')
+        body_decoded = loads(body_json)
+        normalized = {current["name"]: current[[x for x in current.keys() if "val" in x.lower()][0]] for current in body_decoded}
+        return json(normalized)
 
 
 def add_normalization_routes(app):
